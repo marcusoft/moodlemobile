@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/styles.css">
     <script language="javascript">
+
         // We use this code for handling unexpected errors.
         // Using alert, we are sure that the user get notified in a Mobile device.
         // We add this code at the begining of the index.html and we use only native javascript functions.
@@ -22,13 +23,16 @@
             } else {
                 var error = msg;
             }
+
             // This may help debugging if we use logging apps in iOs or Android.
             if(typeof(console) !== "undefined" && typeof(console.log) === "function") {
                 console.log(error);
             }
+
             // Let default error handler run.
             return false;
         };
+
     </script>
     <script src="cordova.js"></script>
     <script src="externallib/jquery.min.js"></script>
@@ -71,12 +75,14 @@
             document.addEventListener("backbutton", function() {
                 MM.panels.goBack();
             }, false);
+
             // Call deviceIsReady function in plugins.
             // Plugins may not be able to listen for the deviceready event because it's possible that it was fire
             // when plugins whasn't loaded, we use a timeout of 5 seconds.
             setTimeout(function() {
                 for (var el in MM.plugins) {
                     var plugin = MM.plugins[el];
+
                     if (typeof(plugin.deviceIsReady) == 'function') {
                         plugin.deviceIsReady();
                     }
@@ -84,6 +90,7 @@
             }, 5000);
             MM.fs.init();
         });
+
         // This function is for handling when the app is opened using a custom URL SCHEME.
         function handleOpenURL(url) {
             MM._appLaunchedByURL(url);
