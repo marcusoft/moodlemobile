@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/styles.css">
     <script language="javascript">
-
         // We use this code for handling unexpected errors.
         // Using alert, we are sure that the user get notified in a Mobile device.
         // We add this code at the begining of the index.html and we use only native javascript functions.
@@ -23,16 +22,13 @@
             } else {
                 var error = msg;
             }
-
             // This may help debugging if we use logging apps in iOs or Android.
             if(typeof(console) !== "undefined" && typeof(console.log) === "function") {
                 console.log(error);
             }
-
             // Let default error handler run.
             return false;
         };
-
     </script>
     <script src="cordova.js"></script>
     <script src="externallib/jquery.min.js"></script>
@@ -75,36 +71,19 @@
             document.addEventListener("backbutton", function() {
                 MM.panels.goBack();
             }, false);
-
             // Call deviceIsReady function in plugins.
             // Plugins may not be able to listen for the deviceready event because it's possible that it was fire
             // when plugins whasn't loaded, we use a timeout of 5 seconds.
             setTimeout(function() {
                 for (var el in MM.plugins) {
                     var plugin = MM.plugins[el];
-
                     if (typeof(plugin.deviceIsReady) == 'function') {
                         plugin.deviceIsReady();
                     }
                 }
             }, 5000);
             MM.fs.init();
-
-            // Check calendar events for new notifications.
-            if (MM.plugins.events && MM.plugins.events.isPluginVisible()) {
-                MM.plugins.events.checkLocalNotifications();
-            }
-
-            // App resume event.
-            $(document).bind('resume', function() {
-
-                // Check calendar events for new notifications.
-                if (MM.plugins.events && MM.plugins.events.isPluginVisible()) {
-                    MM.plugins.events.checkLocalNotifications();
-                }
-            });
         });
-
         // This function is for handling when the app is opened using a custom URL SCHEME.
         function handleOpenURL(url) {
             MM._appLaunchedByURL(url);
@@ -135,11 +114,9 @@
                         </a>
                     </li>
                 </ul>
-                <h1 id="page-title"></h1>
+                <span id="page-title"></span>
             </nav>
         </header>
-        <div id="header-icon-left"></div>
-        <div id="header-icon-right"></div>
     </div>
 
     <div id="panel-left" class="panel user-menu"></div>
@@ -147,7 +124,6 @@
     <div id="panel-center" class="panel"></div>
 
     <div id="panel-right" class="panel"></div>
-
 </div>
 
 <div id="app-dialog">
@@ -380,28 +356,6 @@
 <% });%>
 <div class="add-site">
     <a class="btn" href="#add-site"><%= MM.lang.s("add") %></a>
-</div>
-</script>
-
-<script type="text/template" id="choose-account-upload_template">
-<h1 class="app-ico">
-    <img src="img/login-logo.png" alt="Moodle">
-</h1>
-<h2><%= MM.lang.s('chooseaccountuploadfile') %></h2>
-<% _.each(sites, function(site) { %>
-    <div class="accounts">
-        <a class="account-details" data-siteid="<%= site.id %>" >
-            <img src="<%= MM.util.getMoodleFilePath(site.userpictureurl, 1, site.id) %>">
-            <div>
-                <span class="account-fullname"><%= MM.util.formatText(site.fullname) %></span>
-                <span class="account-sitename"><%= MM.util.formatText(site.sitename) %></span>
-                <span class="account-siteurl"><%= site.siteurl %></span>
-            </div>
-        </a>
-    </div>
-<% });%>
-<div >
-    <a id="btn-cancel-upload" class="btn"><%= MM.lang.s("cancel") %></a>
 </div>
 </script>
 
